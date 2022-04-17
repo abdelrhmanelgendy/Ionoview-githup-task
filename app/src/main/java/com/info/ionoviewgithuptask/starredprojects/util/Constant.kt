@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredProjects
+package com.info.ionoviewgithuptask.starredprojects.util
 
 object Constant {
 

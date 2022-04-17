@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'kotlin-android-extensions'
 }
 
@@ -16,7 +17,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    dataBinding {
+    viewBinding {
         enabled  true
     }
 
@@ -68,5 +69,15 @@ dependencies {
     //ViewModel
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+
+
+    //Dagerr Hilt
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
+
+
+    //Intuit-SDP
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
 }

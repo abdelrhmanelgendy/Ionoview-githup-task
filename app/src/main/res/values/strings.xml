@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GitHup Task</string>
+    <string name="most_starred_projects">Most Starred Projects</string>
 </resources>
