@@ -10,7 +10,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp">
+ android:padding="@dimen/_5sdp"
+
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/gitHupProjectElement_imgContainer"
@@ -98,9 +100,11 @@
             android:background="@drawable/custom_stars_button"
             android:drawableStart="@drawable/ic_baseline_star_24"
             android:drawablePadding="@dimen/_4sdp"
+            android:maxWidth="@dimen/_80sdp"
+            android:minWidth="@dimen/_80sdp"
             android:paddingStart="@dimen/_4sdp"
             android:paddingEnd="@dimen/_4sdp"
-            android:text="Star 30K"
+            android:text="Star 1795"
 
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -118,9 +122,12 @@
             android:drawableStart="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
             android:drawablePadding="@dimen/_4sdp"
             android:drawableTint="@color/black"
+            android:maxWidth="@dimen/_80sdp"
+            android:minWidth="@dimen/_80sdp"
             android:paddingStart="@dimen/_4sdp"
             android:paddingEnd="@dimen/_4sdp"
-            android:text="Issue 30K"
+
+            android:text="Issue 534"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/_10sdp" />
