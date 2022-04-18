@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredprojects.datamodels
+package com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels
 
 data class Item(
     val allow_forking: Boolean,

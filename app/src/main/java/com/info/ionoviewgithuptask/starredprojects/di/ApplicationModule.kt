@@ -1,7 +1,8 @@
 package com.info.ionoviewgithuptask.starredprojects.di
 
 import com.info.ionoviewgithuptask.starredprojects.util.Constant
-import com.info.ionoviewgithuptask.starredprojects.database.remote.GithupApi
+import com.info.ionoviewgithuptask.starredprojects.data.remote.webservice.GitHupApi
+import com.info.ionoviewgithuptask.starredprojects.repository.StarredProjectsMainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +21,12 @@ object ApplicationModule {
         .baseUrl(Constant.GITHUP_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(GithupApi::class.java)
+        .create(GitHupApi::class.java)
 
+    @Provides
+    @Singleton
+    fun provideRepository(gitHupApi: GitHupApi) =
+        StarredProjectsMainRepository(gitHupApi)
 
 
 

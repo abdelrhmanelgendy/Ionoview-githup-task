@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_2sdp"
+    app:cardElevation="@dimen/_1sdp"
+    app:cardUseCompatPadding="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/gitHupProjectElement_imgContainer"
+
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/cat"
+
+            app:cardCornerRadius="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/gitHupProjectElement_imgOwnerAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cat" />
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/gitHupProjectElement_TV_repositoryOwnerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/gitHupProjectElement_imgContainer"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_toStartOf="@id/gitHupProjectElement_TV_repositoryCreationDate"
+            android:layout_toEndOf="@id/gitHupProjectElement_imgContainer"
+            android:maxLines="1"
+            android:text="@string/dummyText"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gitHupProjectElement_TV_repositoryCreationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/gitHupProjectElement_TV_repositoryOwnerName"
+            android:layout_alignBottom="@id/gitHupProjectElement_TV_repositoryOwnerName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:gravity="center"
+            android:text="2018-03-19"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_8sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gitHupProjectElement_TV_repositoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gitHupProjectElement_TV_repositoryOwnerName"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_toEndOf="@id/gitHupProjectElement_imgContainer"
+            android:text="@string/dummyText"
+            android:maxLines="1"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_11sdp"
+
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gitHupProjectElement_TV_repositoryDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gitHupProjectElement_TV_repositoryName"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_toEndOf="@id/gitHupProjectElement_imgContainer"
+            android:text="@string/dummyText"
+            android:textColor="@color/black"
+
+            android:textSize="@dimen/_10sdp" />
+
+        <Button
+            android:id="@+id/gitHupProjectElement_btn_projectStarsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_below="@id/gitHupProjectElement_TV_repositoryDescription"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_toStartOf="@+id/gitHupProjectElement_btn_projectIssueCount"
+            android:background="@drawable/custom_stars_button"
+            android:drawableStart="@drawable/ic_baseline_star_24"
+            android:drawablePadding="@dimen/_4sdp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_4sdp"
+            android:text="Star 30K"
+
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+
+        <Button
+            android:id="@+id/gitHupProjectElement_btn_projectIssueCount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_below="@id/gitHupProjectElement_TV_repositoryDescription"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/custom_issue_button"
+            android:drawableStart="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
+            android:drawablePadding="@dimen/_4sdp"
+            android:drawableTint="@color/black"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_4sdp"
+            android:text="Issue 30K"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
