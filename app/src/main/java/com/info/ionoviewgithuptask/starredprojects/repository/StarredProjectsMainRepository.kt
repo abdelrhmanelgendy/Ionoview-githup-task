@@ -1,16 +1,15 @@
 package com.info.ionoviewgithuptask.starredprojects.repository
 
-import android.util.Log
 import com.info.ionoviewgithuptask.starredprojects.data.remote.webservice.GitHupApi
 import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.GithupRepositoryData
+import com.info.ionoviewgithuptask.starredprojects.util.helpers.NetworkStatusHelper
 import com.info.ionoviewgithuptask.starredprojects.util.ErrorType
 import com.info.ionoviewgithuptask.starredprojects.util.Resource
 import javax.inject.Inject
 
 class StarredProjectsMainRepository
-@Inject constructor(var gitHupApi: GitHupApi) :
+@Inject constructor(var gitHupApi: GitHupApi, var networkStatusHelper: NetworkStatusHelper) :
     StarredProjectsDefaultRepository {
-    private val TAG = "StarredProjectsRepoTag"
     override suspend fun getStarredProjects(
         searchKeyWord: String,
         sortBy: String,
@@ -18,6 +17,9 @@ class StarredProjectsMainRepository
         currentPage: String
     ): Resource<GithupRepositoryData> {
         try {
+            if (!networkStatusHelper.isNetworkConnected()) {
+                return Resource.Error(ErrorType.NO_INTERNET)
+            }
             val repositoryResponse = gitHupApi.getMostStarredRepositoriesByDate(
                 searchKeyWord,
                 sortBy,
@@ -28,8 +30,7 @@ class StarredProjectsMainRepository
                 return Resource.Success(repositoryResponse.body())
 
             } else {
-                val errorMsg=repositoryResponse.message()
-                Log.d(TAG, "getStarredProjects: "+errorMsg)
+                val errorMsg = repositoryResponse.message()
                  return Resource.Error(ErrorType.UNKNOWN, errorMsg)
             }
         } catch (e: Exception) {

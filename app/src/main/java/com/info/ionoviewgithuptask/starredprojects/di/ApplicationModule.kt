@@ -1,33 +1,70 @@
 package com.info.ionoviewgithuptask.starredprojects.di
 
+import androidx.viewbinding.BuildConfig
 import com.info.ionoviewgithuptask.starredprojects.util.Constant
 import com.info.ionoviewgithuptask.starredprojects.data.remote.webservice.GitHupApi
+import com.info.ionoviewgithuptask.starredprojects.util.helpers.NetworkStatusHelper
 import com.info.ionoviewgithuptask.starredprojects.repository.StarredProjectsMainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApplicationModule {
+object
+ApplicationModule {
+
+
+    @Provides
+    @BaseUrl
+    @Singleton
+    fun provideBaseUrl() = Constant.GITHUP_BASE_URL
+
+
+    @Singleton
+    @Provides
+    fun provideGsonConverterFactory(): GsonConverterFactory {
+        return GsonConverterFactory.create()
+    }
 
     @Provides
     @Singleton
-    fun provideGitHupApi() = Retrofit.Builder()
-        .baseUrl(Constant.GITHUP_BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+    } else OkHttpClient
+        .Builder()
         .build()
-        .create(GitHupApi::class.java)
 
     @Provides
     @Singleton
-    fun provideRepository(gitHupApi: GitHupApi) =
-        StarredProjectsMainRepository(gitHupApi)
+    fun provideGitHupApi(
+        @BaseUrl baseUrl: String,
+        gsonConverterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient,
+    ) =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(gsonConverterFactory)
+            .client(okHttpClient)
+            .build()
+            .create(GitHupApi::class.java)
 
+
+
+    @Provides
+    @Singleton
+    fun provideRepository(gitHupApi: GitHupApi,networkStatusHelper: NetworkStatusHelper) =
+        StarredProjectsMainRepository(gitHupApi,networkStatusHelper)
 
 
 }

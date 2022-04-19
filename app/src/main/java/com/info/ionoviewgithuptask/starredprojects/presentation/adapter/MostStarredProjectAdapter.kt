@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.info.ionoviewgithuptask.R
 import com.info.ionoviewgithuptask.databinding.GithupProjectElementBinding
 import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.Item
-import com.info.ionoviewgithuptask.starredprojects.util.convertGitHupDateTimeToSimpleDate
+import com.info.ionoviewgithuptask.starredprojects.domain.adapterusecase.*
+import java.util.logging.Filter
 
 class MostStarredProjectAdapter constructor(private val layoutInflater: LayoutInflater) :
 
@@ -33,20 +35,28 @@ class MostStarredProjectAdapter constructor(private val layoutInflater: LayoutIn
     }
 
     fun setData(updatedList: List<Item>) {
-        Log.d("TAG212", "setData: " + updatedList)
         val projectsDiffUtil = StarredProjectsDiffUtil(oldProjectItemsList, updatedList)
         val calculateDiffResult = DiffUtil.calculateDiff(projectsDiffUtil)
         oldProjectItemsList = updatedList
-
         calculateDiffResult.dispatchUpdatesTo(this)
     }
 
+    private lateinit var distinctByIdList: List<Item>
+
+    //used to migrate two lists
     fun appendList(list: List<Item>) {
         val currentList =
-            oldProjectItemsList.toMutableList() // get the current adapter list as a mutated list
+            oldProjectItemsList.toMutableList()
         currentList.addAll(list)
-        val distinctBy = currentList.distinctBy { it.id }
-        setData(distinctBy)
+        distinctByIdList = DistinctListOfProjects()(currentList)
+        setData(distinctByIdList)
+    }
+
+    fun getItemsList(): List<Item> {
+        if (::distinctByIdList.isInitialized && !distinctByIdList.isEmpty())
+            return distinctByIdList;
+        else
+            return emptyList()
     }
 
     inner class StarredProjectViewHolder(
@@ -58,8 +68,12 @@ class MostStarredProjectAdapter constructor(private val layoutInflater: LayoutIn
         fun bindDateToViews(position: Int) {
             val gitHupProjectItem = oldProjectItemsList.get(position)
 
-            Glide.with(context).load(getOwnerAvatarUrl(gitHupProjectItem))
-                .into(holderBinding.gitHupProjectElementImgOwnerAvatar)
+            LoadPhoto().invoke(
+                holderBinding.gitHupProjectElementImgOwnerAvatar,
+                getOwnerAvatarUrl(gitHupProjectItem),
+                R.mipmap.ic_launcher,
+                context
+            )
 
             holderBinding.gitHupProjectElementTVRepositoryName.setText(gitHupProjectItem.name)
 
@@ -80,21 +94,16 @@ class MostStarredProjectAdapter constructor(private val layoutInflater: LayoutIn
                 )
             )
             holderBinding.gitHupProjectElementTVRepositoryDescription.setText(gitHupProjectItem.description)
-            holderBinding.gitHupProjectElementTVRepositoryCreationDate.setText(gitHupProjectItem.id.toString())
+            holderBinding.gitHupProjectElementTVRepositoryCreationDate.setText(
+                getSimpleDate(
+                    gitHupProjectItem
+                )
+            )
 
         }
 
-        private fun getStarsCount(gitHupProjectItem: Item) =
-            "Stars ${gitHupProjectItem.stargazers_count}"
-
-        private fun getIssueCount(gitHupProjectItem: Item) =
-            "Issues ${gitHupProjectItem.open_issues_count}"
 
     }
 
-    private fun getOwnerAvatarUrl(gitHupProject: Item) = gitHupProject.owner.avatar_url
-    private fun getOwnerName(gitHupProject: Item) = gitHupProject.owner.login
-    private fun getSimpleDate(gitHupProject: Item) =
-        convertGitHupDateTimeToSimpleDate(gitHupProject.created_at)
-//                                                                                             2018-02-22T22:23:19Z
+
 }

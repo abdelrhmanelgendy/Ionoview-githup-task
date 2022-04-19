@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
- android:padding="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
 
         >
 
@@ -69,8 +69,8 @@
             android:layout_below="@id/gitHupProjectElement_TV_repositoryOwnerName"
             android:layout_marginStart="@dimen/_3sdp"
             android:layout_toEndOf="@id/gitHupProjectElement_imgContainer"
-            android:text="@string/dummyText"
             android:maxLines="1"
+            android:text="@string/dummyText"
             android:textColor="@color/gray"
             android:textSize="@dimen/_11sdp"
 
@@ -92,16 +92,16 @@
         <Button
             android:id="@+id/gitHupProjectElement_btn_projectStarsCount"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_28sdp"
+            android:layout_height="@dimen/_24sdp"
             android:layout_below="@id/gitHupProjectElement_TV_repositoryDescription"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:layout_toStartOf="@+id/gitHupProjectElement_btn_projectIssueCount"
             android:background="@drawable/custom_stars_button"
             android:drawableStart="@drawable/ic_baseline_star_24"
-            android:drawablePadding="@dimen/_4sdp"
-            android:maxWidth="@dimen/_80sdp"
-            android:minWidth="@dimen/_80sdp"
+            android:drawablePadding="@dimen/_1sdp"
+            android:maxWidth="@dimen/_75sdp"
+            android:minWidth="@dimen/_75sdp"
             android:paddingStart="@dimen/_4sdp"
             android:paddingEnd="@dimen/_4sdp"
             android:text="Star 1795"
@@ -113,17 +113,17 @@
         <Button
             android:id="@+id/gitHupProjectElement_btn_projectIssueCount"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_28sdp"
+            android:layout_height="@dimen/_24sdp"
             android:layout_below="@id/gitHupProjectElement_TV_repositoryDescription"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/custom_issue_button"
             android:drawableStart="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
-            android:drawablePadding="@dimen/_4sdp"
+            android:drawablePadding="@dimen/_1sdp"
             android:drawableTint="@color/black"
-            android:maxWidth="@dimen/_80sdp"
-            android:minWidth="@dimen/_80sdp"
+            android:maxWidth="@dimen/_75sdp"
+            android:minWidth="@dimen/_75sdp"
             android:paddingStart="@dimen/_4sdp"
             android:paddingEnd="@dimen/_4sdp"
 

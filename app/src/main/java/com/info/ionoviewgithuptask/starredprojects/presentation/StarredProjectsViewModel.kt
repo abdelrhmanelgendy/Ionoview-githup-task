@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.GithupRepositoryData
+import com.info.ionoviewgithuptask.starredprojects.domain.userinputusecase.IsValid
 import com.info.ionoviewgithuptask.starredprojects.repository.StarredProjectsMainRepository
 import com.info.ionoviewgithuptask.starredprojects.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,9 @@ class StarredProjectsViewModel
     StarredProjectsMainRepository
 ) :
     ViewModel() {
+
+
+
     private val _starredProjectsMutableLiveData: MutableLiveData<Resource<GithupRepositoryData>> =
         MutableLiveData()
     val starredProjectsLiveData: LiveData<Resource<GithupRepositoryData>> =

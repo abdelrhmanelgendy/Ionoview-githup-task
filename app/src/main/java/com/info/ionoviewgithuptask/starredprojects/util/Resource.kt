@@ -17,6 +17,5 @@ sealed class Resource<T>(
 
 enum class ErrorType(val errorMessage: String) {
     UNKNOWN(errorMessage = "Error"),
-    EMPTY_DATA("Empty Data"),
     NO_INTERNET("NO Internet"),
- }
+}
