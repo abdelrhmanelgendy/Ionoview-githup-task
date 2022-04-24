@@ -1,8 +1,7 @@
 package com.info.ionoviewgithuptask.starredprojects.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.GithupRepositoryData
-import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.Item
+import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects.Item
 
 typealias GitHupRepositories = List<Item>
 

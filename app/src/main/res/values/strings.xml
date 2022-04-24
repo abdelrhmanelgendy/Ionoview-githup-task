@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">GitHup Task</string>
     <string name="most_starred_projects">Most Starred Projects</string>
-    <string name="dummyText">Features are less important than code quality. Put more focus on code quality
-and less on speed and number of features implemented</string>
+    <string name="dummyText">Features are less important than code quality.</string>
     <string name="loading">Loading</string>
     <string name="search_hint">search by owner, repo name, stars, issues</string>
     <string name="noInternetConnection">No internet connection</string>

@@ -1,6 +1,6 @@
-package com.info.ionoviewgithuptask.starredprojects.repository
+package com.info.ionoviewgithuptask.starredprojects.domain.repository
 
-import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.GithupRepositoryData
+import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects.GitHupRepositoryData
 import com.info.ionoviewgithuptask.starredprojects.util.Resource
 
 interface StarredProjectsDefaultRepository {
@@ -9,5 +9,5 @@ interface StarredProjectsDefaultRepository {
         sortBy: String,
         orderBy: String,
         currentPage: String,
-    ):Resource<GithupRepositoryData>
+    ):Resource<GitHupRepositoryData>
 }

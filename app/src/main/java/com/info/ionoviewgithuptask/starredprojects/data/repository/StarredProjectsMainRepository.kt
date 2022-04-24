@@ -1,7 +1,7 @@
-package com.info.ionoviewgithuptask.starredprojects.repository
+package com.info.ionoviewgithuptask.starredprojects.domain.repository
 
 import com.info.ionoviewgithuptask.starredprojects.data.remote.webservice.GitHupApi
-import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.GithupRepositoryData
+import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects.GitHupRepositoryData
 import com.info.ionoviewgithuptask.starredprojects.util.helpers.NetworkStatusHelper
 import com.info.ionoviewgithuptask.starredprojects.util.ErrorType
 import com.info.ionoviewgithuptask.starredprojects.util.Resource
@@ -15,7 +15,7 @@ class StarredProjectsMainRepository
         sortBy: String,
         orderBy: String,
         currentPage: String
-    ): Resource<GithupRepositoryData> {
+    ): Resource<GitHupRepositoryData> {
         try {
             if (!networkStatusHelper.isNetworkConnected()) {
                 return Resource.Error(ErrorType.NO_INTERNET)

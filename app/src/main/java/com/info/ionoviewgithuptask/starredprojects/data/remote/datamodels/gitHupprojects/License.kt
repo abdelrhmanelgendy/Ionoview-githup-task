@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels
+package com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects
 
 data class License(
     val key: String,

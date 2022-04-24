@@ -1,13 +1,13 @@
 package com.info.ionoviewgithuptask.starredprojects.domain.userinputusecase
 
-typealias IsValid = ValidateInputUseCase
+typealias IsValid = ValidateSearchQueryInputUseCase
 
-class ValidateInputUseCase {
+class ValidateSearchQueryInputUseCase {
     operator fun invoke(input: String): Boolean {
-        return isPhotoSearchQueryValid(input)
+        return isSearchQueryValid(input)
     }
 
-    private fun isPhotoSearchQueryValid(input: String): Boolean =
+    private fun isSearchQueryValid(input: String): Boolean =
         input.isNotBlank() && input.isNotEmpty()
 
 }

@@ -1,6 +1,6 @@
 package com.info.ionoviewgithuptask.starredprojects.domain.userinputusecase
 
-import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.Item
+import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects.Item
 import java.util.*
 
 class FilterListOfItemUseCase {
@@ -10,19 +10,40 @@ class FilterListOfItemUseCase {
             return emptyList()
         }
         val userInput = input.lowercase(Locale.getDefault())
-        val temporaryProjectsList = updatedList
-        val filteredProjectsList = temporaryProjectsList.filter { item ->
-            item.name.lowercase(Locale.getDefault()).contains(userInput) ||
-                    (item.description != null && item.description.lowercase(Locale.getDefault())
-                        .contains(userInput)) ||
-                    item.stargazers_count.toString().lowercase(Locale.getDefault())
-                        .contains(userInput) || item.open_issues_count.toString()
-                .lowercase(Locale.getDefault())
-                .contains(userInput) || item.owner.login.lowercase(Locale.getDefault())
-                .contains(userInput)
+
+        return updatedList.filter { item ->
+            filterByName(item, userInput) ||
+                    filterByDescription(item, userInput) ||
+                    filterByStars(item, userInput) ||
+                    filterByIssues(item, userInput) ||
+                   filterBuOwnerName(item,userInput)
         }
-        return filteredProjectsList
 
 
     }
+
+    private fun filterBuOwnerName(item: Item, userInput: String)=
+        item.owner?.login?.lowercase(Locale.getDefault())
+            ?.contains(userInput)!!
+
+
+    private fun filterByIssues(item: Item, userInput: String) =
+        item.open_issues_count.toString()
+            .lowercase(Locale.getDefault())
+            .contains(userInput)
+
+
+    private fun filterByStars(item: Item, userInput: String): Boolean =
+        item.stargazers_count.toString().lowercase(Locale.getDefault())
+            .contains(userInput)
+
+
+    private fun filterByDescription(item: Item, userInput: String) =
+        (item.description != null && item.description.lowercase(Locale.getDefault())
+            .contains(userInput))
+
+
+    private fun filterByName(item: Item, userInput: String) =
+        item.name?.lowercase(Locale.getDefault())?.contains(userInput)!!
+
 }

@@ -3,8 +3,8 @@ package com.info.ionoviewgithuptask.starredprojects.di
 import androidx.viewbinding.BuildConfig
 import com.info.ionoviewgithuptask.starredprojects.util.Constant
 import com.info.ionoviewgithuptask.starredprojects.data.remote.webservice.GitHupApi
+import com.info.ionoviewgithuptask.starredprojects.domain.repository.StarredProjectsMainRepository
 import com.info.ionoviewgithuptask.starredprojects.util.helpers.NetworkStatusHelper
-import com.info.ionoviewgithuptask.starredprojects.repository.StarredProjectsMainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +25,7 @@ ApplicationModule {
     @BaseUrl
     @Singleton
     fun provideBaseUrl() = Constant.GITHUP_BASE_URL
+
 
 
     @Singleton
@@ -51,7 +52,7 @@ ApplicationModule {
         @BaseUrl baseUrl: String,
         gsonConverterFactory: GsonConverterFactory,
         okHttpClient: OkHttpClient,
-    ) =
+    ): GitHupApi =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(gsonConverterFactory)

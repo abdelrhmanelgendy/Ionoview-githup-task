@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
 
-    tools:context=".starredprojects.presentation.StarredProjectsActivity">
+    tools:context=".starredprojects.presentation.ui.StarredProjectsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/starredProjectsActivity_mainToolBar"
@@ -26,7 +26,6 @@
         android:nestedScrollingEnabled="true"
         android:paddingStart="@dimen/_5sdp"
         android:visibility="gone"
-
         app:layout_constraintBottom_toTopOf="@+id/starredProjectsActivity_ProgressBar"
         app:layout_constraintTop_toBottomOf="@id/starredProjectsActivity_mainToolBar"
         tools:listitem="@layout/githup_project_element" />

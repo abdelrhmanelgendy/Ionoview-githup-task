@@ -6,6 +6,7 @@ sealed class Resource<T>(
     open val errorType: ErrorType = ErrorType.UNKNOWN
 ) {
     class Loading<T>() : Resource<T>()
+    class Idle<T>() : Resource<T>()
 
     data class Success<T>(override val data: T?, override val message: String = "") : Resource<T>()
 
