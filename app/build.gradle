@@ -21,11 +21,34 @@ android {
         enabled true
     }
 
+
+    signingConfigs {
+        release {
+            storeFile file('iono_task.jks')
+            storePassword 'iono123'
+            keyAlias 'iono_alias_task'
+            keyPassword 'iono123'
+        }
+
+        debug {
+            storeFile file('iono_task.jks')
+            storePassword 'iono123'
+            keyAlias 'iono_alias_task'
+            keyPassword 'iono123'
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug
+                {
+                    signingConfig signingConfigs.debug
+
+                }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
