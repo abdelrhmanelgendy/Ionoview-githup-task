@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredprojects.presentation.ui
+package com.info.ionoviewgithuptask.starredprojects.presentation.starredproject
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

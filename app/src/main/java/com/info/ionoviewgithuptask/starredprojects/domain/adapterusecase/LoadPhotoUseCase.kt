@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredprojects.domain.adapterusecase
+package com.info.ionoviewgithuptask.starredprojects.domain
 
 import android.content.Context
 import android.widget.ImageView

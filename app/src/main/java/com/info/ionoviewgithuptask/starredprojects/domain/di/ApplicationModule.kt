@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredprojects.di
+package com.info.ionoviewgithuptask.starredprojects.domain.di
 
 import androidx.viewbinding.BuildConfig
 import com.info.ionoviewgithuptask.starredprojects.util.Constant

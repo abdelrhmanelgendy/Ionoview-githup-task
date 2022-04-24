@@ -1,4 +1,4 @@
-package com.info.ionoviewgithuptask.starredprojects.presentation
+package com.info.ionoviewgithuptask.starredprojects.presentation.starredproject
 
 import android.os.Bundle
 import android.util.Log
@@ -7,22 +7,21 @@ import android.view.View
 import android.widget.AbsListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.info.ionoviewgithuptask.R
 import com.info.ionoviewgithuptask.databinding.ActivityStarredProjetsBinding
-import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects.GitHupRepositoryData
-import com.info.ionoviewgithuptask.starredprojects.domain.adapterusecase.RepositoryCreationDateUseCase
+import com.info.ionoviewgithuptask.starredprojects.domain.RepositoryCreationDateUseCase
 import com.info.ionoviewgithuptask.starredprojects.domain.userinputusecase.FilterListOfItemUseCase
 import com.info.ionoviewgithuptask.starredprojects.domain.userinputusecase.IsValid
-import com.info.ionoviewgithuptask.starredprojects.presentation.adapter.MostStarredProjectAdapter
+import com.info.ionoviewgithuptask.starredprojects.presentation.adapter.StarredProjectAdapter
 import com.info.ionoviewgithuptask.starredprojects.util.ErrorType
 import com.info.ionoviewgithuptask.starredprojects.util.Resource
-
 import com.info.ionoviewgithuptask.starredprojects.util.extensions.showInternetConnectionDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import java.util.*
 
 
@@ -34,7 +33,7 @@ class StarredProjectsActivity : AppCompatActivity() {
     val isValid = IsValid()
     var isUserFiltering = false
 
-    lateinit var mostStarredProjectAdapter: MostStarredProjectAdapter
+    lateinit var mostStarredProjectAdapter: StarredProjectAdapter
     val starredProjectsViewModel: StarredProjectsViewModel by lazy {
         ViewModelProvider(this).get(StarredProjectsViewModel::class.java)
     }
@@ -50,74 +49,67 @@ class StarredProjectsActivity : AppCompatActivity() {
 
 
         setSupportActionBar(activityBinding.starredProjectsActivityMainToolBar)
-        mostStarredProjectAdapter = MostStarredProjectAdapter(layoutInflater)
+        mostStarredProjectAdapter = StarredProjectAdapter(layoutInflater)
         linearLayoutManager = LinearLayoutManager(this)
-        activityBinding.starredProjectsActivityRecyclerViewProjects.layoutManager =
-            linearLayoutManager
-        activityBinding.starredProjectsActivityRecyclerViewProjects.adapter =
-            mostStarredProjectAdapter
-        getDate(getTheDateOfLastMonth(), currentScrollingPage)
 
+        activityBinding.starredProjectsActivityRecyclerViewProjects.run {
+            layoutManager =
+                linearLayoutManager
+            adapter =
+                mostStarredProjectAdapter
+        }
+        getDate(getTheDateOfLastMonth(), currentScrollingPage)
         createRecyclerViewPagination()
 
-        addObserverOnViewModelLiveData()
+        collectItemsFromViewModel()
 
     }
 
 
-    private fun addObserverOnViewModelLiveData() {
+    private fun collectItemsFromViewModel() {
 
-        starredProjectsViewModel.starredProjectsLiveData.observe(this,
-            object : Observer<Resource<GitHupRepositoryData>> {
-                override fun onChanged(result: Resource<GitHupRepositoryData>?) {
-                    when (result) {
-                        is Resource.Success -> {
-
-                            mostStarredProjectAdapter.appendList(result.data?.items!!)
-                            changeProgressBarVisibility(false)
-                            Log.d(
-                                TAG,
-                                "onChanged: success ${currentScrollingPage}" + result.data?.items!!
-                            )
-                            currentScrollingPage++
-                            changeLoadingDataViewVisibility(false)
-                            changeStarredProjectRecyclerViewVisibility(true)
-                            showInternetConnectionDialog(
-                                false,
-                                activityBinding.starredProjectsActivityInternetLayout.root
-                            )
-
-                        }
-                        is Resource.Loading -> {
-                            Log.d(TAG, "onChanged: loading")
-
-                        }
-                        is Resource.Error -> {
-                            changeProgressBarVisibility(false)
-                            changeLoadingDataViewVisibility(false)
-                            if (result.errorType == ErrorType.NO_INTERNET) {
-                                showInternetConnectionDialog(
-                                    true,
-                                    activityBinding.starredProjectsActivityInternetLayout.root
-                                )
-                            }
-                        }
+        lifecycleScope.launchWhenStarted {
+            starredProjectsViewModel.starredProjectsStateFlow.collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        mostStarredProjectAdapter.appendList(result.data?.items!!)
+                        changeProgressBarVisibility(false)
+                        Log.d(
+                            TAG,
+                            "onChanged: success ${currentScrollingPage}" + result.data?.items!!
+                        )
+                        currentScrollingPage++
+                        changeLoadingDataViewVisibility(false)
+                        changeStarredProjectRecyclerViewVisibility(true)
+                        showInternetConnectionDialog(
+                            false,
+                            activityBinding.starredProjectsActivityInternetLayout.root
+                        )
 
                     }
+                    is Resource.Loading -> {
+                        Log.d(TAG, "onChanged: loading")
 
+                    }
+                    is Resource.Error -> {
+                        changeProgressBarVisibility(false)
+                        changeLoadingDataViewVisibility(false)
+                        if (result.errorType == ErrorType.NO_INTERNET) {
+                            showInternetConnectionDialog(
+                                true,
+                                activityBinding.starredProjectsActivityInternetLayout.root
+                            )
+                        }
+                    }
                 }
-            })
+            }
+        }
     }
 
     private fun getDate(date: String, currentPage: Int) {
         starredProjectsViewModel.getData(date, "stars", "desc", currentPage.toString())
 
     }
-
-
-
-
-
 
 
     var isRecyclerViewStateScrolling = false
@@ -181,15 +173,14 @@ class StarredProjectsActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //search view
         menuInflater.inflate(R.menu.menu_search_items, menu)
 
         val searchItem = menu!!.findItem(R.id.menuAction_search)
-
         val searchView = searchItem.actionView as SearchView
         searchView.queryHint = getResourceString(R.string.search_hint)
         searchView.setOnQueryTextListener(searchListener)
         searchView.isIconified = false
-
         return true
 
     }
@@ -197,10 +188,8 @@ class StarredProjectsActivity : AppCompatActivity() {
 
     fun isValidQueryInput(text: String) = isValid(text)
     val searchListener = (object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(p0: String?): Boolean {
 
-            return false
-        }
+        override fun onQueryTextSubmit(p0: String?)=false
 
         override fun onQueryTextChange(input: String?): Boolean {
             if (isValidQueryInput(input!!)) {
@@ -214,6 +203,8 @@ class StarredProjectsActivity : AppCompatActivity() {
             } else {
                 isUserFiltering = false
                 mostStarredProjectAdapter.setData(mostStarredProjectAdapter.getItemsList())
+                scrollRecyclerView(0)
+
             }
             return true
         }
@@ -222,7 +213,7 @@ class StarredProjectsActivity : AppCompatActivity() {
     })
 
     private fun scrollRecyclerView(position: Int) {
-        activityBinding.starredProjectsActivityRecyclerViewProjects.scrollToPosition(position)
+        activityBinding.starredProjectsActivityRecyclerViewProjects.smoothScrollToPosition(position)
 
     }
 

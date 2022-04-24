@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.info.ionoviewgithuptask.R
-import com.info.ionoviewgithuptask.starredprojects.presentation.ui.StarredProjectsActivity
+import com.info.ionoviewgithuptask.starredprojects.presentation.starredproject.StarredProjectsActivity
 import com.info.ionoviewgithuptask.starredprojects.util.Constant.NO_CONNECTION
 import com.info.ionoviewgithuptask.starredprojects.util.ToastMatcher
 import org.junit.Rule

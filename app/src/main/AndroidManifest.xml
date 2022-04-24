@@ -14,7 +14,7 @@
         android:name=".starredprojects.BaseApp"
         android:theme="@style/Theme.IonoviewGithupTask">
         <activity
-            android:name=".starredprojects.presentation.ui.StarredProjectsActivity"
+            android:name=".starredprojects.presentation.starredproject.StarredProjectsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

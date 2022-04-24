@@ -8,13 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.info.ionoviewgithuptask.R
-import com.info.ionoviewgithuptask.starredprojects.presentation.ui.StarredProjectsActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers.not
+import com.info.ionoviewgithuptask.starredprojects.presentation.starredproject.StarredProjectsActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 

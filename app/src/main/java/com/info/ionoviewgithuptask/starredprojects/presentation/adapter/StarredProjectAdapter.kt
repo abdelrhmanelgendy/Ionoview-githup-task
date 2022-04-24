@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.info.ionoviewgithuptask.R
 import com.info.ionoviewgithuptask.databinding.GithupProjectElementBinding
 import com.info.ionoviewgithuptask.starredprojects.data.remote.datamodels.gitHupprojects.Item
+import com.info.ionoviewgithuptask.starredprojects.domain.LoadPhoto
 import com.info.ionoviewgithuptask.starredprojects.domain.adapterusecase.*
 
 class StarredProjectAdapter constructor(private val layoutInflater: LayoutInflater) :
