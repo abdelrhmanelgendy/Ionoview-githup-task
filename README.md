@@ -25,10 +25,13 @@ The project uses Clean architecture as structure pattern consisting of the layer
 * Basic Recycler view paging
 
 # Tests 
-
-
 * Use cases test: create a test for every use case i depend on at the project,create a test for the important logic parts
 * ui test : add just the needed ui test to ensure that every thing is working.
+ 
+ # Git flow strategy 
+* using git-flow to create a new develope branch which receives updates from the feature branch and at the end of the developing this feature the updates are pushed from the develop to master in order to create the app releases
+ 
+ 
  
  <br/>
   <br/>
